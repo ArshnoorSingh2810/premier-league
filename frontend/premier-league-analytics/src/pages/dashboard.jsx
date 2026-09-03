@@ -1,10 +1,10 @@
-import StatCard from "../components/StatCard";
+import StatCard from "../components/statcard";
 
 import {
   stats,
   standings,
   topScorers
-} from "../data/dummyData";
+} from "../data/dummydata";
 
 function Dashboard() {
   return (
