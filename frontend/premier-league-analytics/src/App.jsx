@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 
-import Dashboard from "./pages/Dashboard";
-import Standings from "./pages/Standings";
-import Scorers from "./pages/Scorers";
-import Teams from "./pages/Teams";
-import Predictor from "./pages/Predictor";
-import Matches from "./pages/Matches";
+import Dashboard from "./pages/dashboard";
+import Standings from "./pages/standings";
+import Scorers from "./pages/scorers";
+import Teams from "./pages/teams";
+import Predictor from "./pages/predictor";
+import Matches from "./pages/matches";
 
 function App() {
   return (
