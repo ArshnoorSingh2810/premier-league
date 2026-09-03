@@ -416,6 +416,81 @@ h1 {
   font-weight: 600;
 }
 
+.standings-notice {
+  background: rgba(255, 170, 0, 0.15);
+  border: 1px solid rgba(255, 170, 0, 0.35);
+  color: #ffca28;
+  padding: 12px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.notice-retry {
+  background: rgba(255, 170, 0, 0.25);
+  border: 1px solid rgba(255, 170, 0, 0.5);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.notice-retry:hover {
+  background: rgba(255, 170, 0, 0.45);
+}
+
+.standings-state-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  padding: 40px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.standings-state-card.error {
+  border-color: rgba(255, 77, 77, 0.4);
+  background: rgba(255, 77, 77, 0.1);
+}
+
+.standings-state-card h2 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.error-details {
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.retry-btn {
+  background: #00FF85;
+  color: #111;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.retry-btn:hover {
+  background: #00e074;
+  transform: translateY(-2px);
+}
+
+
 
 /* =========================================
    STANDING MINI ROWS
