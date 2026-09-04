@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_BASE_URL from "../api/config";
 
 function Scorers() {
   const [players, setPlayers] = useState([]);
@@ -13,7 +14,7 @@ function Scorers() {
     const fetchScorers = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/scorers"
+          `${API_BASE_URL}/scorers`
         );
 
         if (!response.ok) {

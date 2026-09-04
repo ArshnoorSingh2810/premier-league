@@ -45,15 +45,17 @@ const FALLBACK_STANDINGS = [
   { position: 20, team: { id: 394, name: "Leicester City FC", shortName: "Leicester", crest: "https://crests.football-data.org/394.png" }, playedGames: 38, won: 9, draw: 7, lost: 22, goalsFor: 51, goalsAgainst: 68, goalDifference: -17, points: 34 }
 ];
 
+const router = express.Router();
+
 // TEST ROUTE
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
   res.json({
     message: "Premier League API backend is running"
   });
 });
 
 // STANDINGS ROUTE
-app.get("/api/standings", async (req, res) => {
+router.get("/standings", async (req, res) => {
   try {
     const response = await footballAPI.get("/competitions/PL/standings");
     res.json(response.data);
@@ -80,7 +82,7 @@ app.get("/api/standings", async (req, res) => {
 });
 
 // MATCHES ROUTE
-app.get("/api/matches", async (req, res) => {
+router.get("/matches", async (req, res) => {
   try {
     const response = await footballAPI.get("/competitions/PL/matches");
     console.log("Matches fetched:", response.data.matches?.length);
@@ -95,7 +97,7 @@ app.get("/api/matches", async (req, res) => {
 });
 
 // SCORERS ROUTE
-app.get("/api/scorers", async (req, res) => {
+router.get("/scorers", async (req, res) => {
   try {
     const response = await footballAPI.get("/competitions/PL/scorers");
     res.json(response.data);
@@ -109,7 +111,7 @@ app.get("/api/scorers", async (req, res) => {
 });
 
 // TEAMS ROUTE
-app.get("/api/teams", async (req, res) => {
+router.get("/teams", async (req, res) => {
   try {
     const response = await footballAPI.get("/competitions/PL/teams");
     res.json(response.data);
@@ -122,6 +124,14 @@ app.get("/api/teams", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
-});
+app.use("/api", router);
+app.use("/.netlify/functions/api", router);
+app.use("/", router);
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Backend running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

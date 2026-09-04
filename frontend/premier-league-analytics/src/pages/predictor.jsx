@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ML_API_BASE_URL } from "../api/config";
 import "./predictor.css";
 
 function Predictor() {
@@ -11,7 +12,7 @@ function Predictor() {
 
   // Get teams from FastAPI
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/teams")
+    fetch(`${ML_API_BASE_URL}/teams`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Could not connect to ML API");
@@ -44,7 +45,7 @@ function Predictor() {
     setError("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/predict", {
+      const response = await fetch(`${ML_API_BASE_URL}/predict`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

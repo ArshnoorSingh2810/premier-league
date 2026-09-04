@@ -6,7 +6,16 @@
     "dev": "concurrently -n \"FRONTEND,BACKEND,ML-API\" -c \"cyan,magenta,yellow\" \"npm --prefix frontend/premier-league-analytics run dev\" \"npm --prefix backend run dev\" \"cd ml && py -m uvicorn api:app --reload --port 8000\"",
     "dev:frontend": "npm --prefix frontend/premier-league-analytics run dev",
     "dev:backend": "npm --prefix backend run dev",
-    "dev:ml": "cd ml && py -m uvicorn api:app --reload --port 8000"
+    "dev:ml": "cd ml && py -m uvicorn api:app --reload --port 8000",
+    "build": "npm --prefix frontend/premier-league-analytics run build"
+  },
+  "dependencies": {
+    "@netlify/functions": "^3.0.0",
+    "axios": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "concurrently": "^10.0.5"

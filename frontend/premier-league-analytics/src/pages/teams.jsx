@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_BASE_URL from "../api/config";
 
 function Teams() {
   const [teams, setTeams] = useState([]);
@@ -11,7 +12,7 @@ function Teams() {
     const fetchTeams = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/teams"
+          `${API_BASE_URL}/teams`
         );
 
         if (!response.ok) {

@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import API_BASE_URL from "../api/config";
 
 function Standings() {
   const [standings, setStandings] = useState([]);
@@ -12,7 +13,7 @@ function Standings() {
     setWarning("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/standings");
+      const response = await fetch(`${API_BASE_URL}/standings`);
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));

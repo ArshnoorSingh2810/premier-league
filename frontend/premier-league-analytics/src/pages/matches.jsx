@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_BASE_URL from "../api/config";
 
 function Matches() {
 
@@ -13,7 +14,7 @@ function Matches() {
       try {
 
         const response = await fetch(
-          "http://localhost:5000/api/matches"
+          `${API_BASE_URL}/matches`
         );
 
         if (!response.ok) {
