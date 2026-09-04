@@ -1,7 +1,7 @@
 [build]
-  command = "npm run build"
-  publish = "dist"
-  functions = "../../netlify/functions"
+  command = "npm --prefix frontend/premier-league-analytics install && npm --prefix frontend/premier-league-analytics run build"
+  publish = "frontend/premier-league-analytics/dist"
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/api/*"
