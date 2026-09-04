@@ -1,7 +1,11 @@
 [build]
-  command = "npm --prefix frontend/premier-league-analytics install && npm --prefix frontend/premier-league-analytics run build"
+  command = "npm install && npm run build"
   publish = "frontend/premier-league-analytics/dist"
   functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["backend/**"]
 
 [[redirects]]
   from = "/api/*"

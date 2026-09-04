@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
-const FOOTBALL_API_TOKEN = process.env.FOOTBALL_API_TOKEN || "b6057c27ee674aad9da43165ea598362";
+const FOOTBALL_API_TOKEN = process.env.FOOTBALL_API_TOKEN || "";
 
 const footballAPI = axios.create({
   baseURL: "https://api.football-data.org/v4",
@@ -81,6 +81,30 @@ router.get("/standings", async (req, res) => {
   }
 });
 
+const FALLBACK_MATCHES = [
+  { id: 1, utcDate: "2024-05-19T15:00:00Z", homeTeam: { name: "Manchester City FC" }, awayTeam: { name: "West Ham United FC" }, status: "FINISHED", score: { fullTime: { home: 3, away: 1 } } },
+  { id: 2, utcDate: "2024-05-19T15:00:00Z", homeTeam: { name: "Arsenal FC" }, awayTeam: { name: "Everton FC" }, status: "FINISHED", score: { fullTime: { home: 2, away: 1 } } },
+  { id: 3, utcDate: "2024-05-19T15:00:00Z", homeTeam: { name: "Liverpool FC" }, awayTeam: { name: "Wolverhampton Wanderers FC" }, status: "FINISHED", score: { fullTime: { home: 2, away: 0 } } },
+  { id: 4, utcDate: "2024-05-19T15:00:00Z", homeTeam: { name: "Brighton & Hove Albion FC" }, awayTeam: { name: "Manchester United FC" }, status: "FINISHED", score: { fullTime: { home: 0, away: 2 } } },
+  { id: 5, utcDate: "2024-05-19T15:00:00Z", homeTeam: { name: "Chelsea FC" }, awayTeam: { name: "AFC Bournemouth" }, status: "FINISHED", score: { fullTime: { home: 2, away: 1 } } }
+];
+
+const FALLBACK_SCORERS = [
+  { player: { id: 1, name: "Erling Haaland" }, team: { name: "Manchester City FC" }, playedMatches: 31, goals: 27, assists: 5 },
+  { player: { id: 2, name: "Cole Palmer" }, team: { name: "Chelsea FC" }, playedMatches: 34, goals: 22, assists: 11 },
+  { player: { id: 3, name: "Alexander Isak" }, team: { name: "Newcastle United FC" }, playedMatches: 30, goals: 21, assists: 2 },
+  { player: { id: 4, name: "Ollie Watkins" }, team: { name: "Aston Villa FC" }, playedMatches: 37, goals: 19, assists: 13 },
+  { player: { id: 5, name: "Dominic Solanke" }, team: { name: "AFC Bournemouth" }, playedMatches: 38, goals: 19, assists: 3 },
+  { player: { id: 6, name: "Mohamed Salah" }, team: { name: "Liverpool FC" }, playedMatches: 32, goals: 18, assists: 10 }
+];
+
+const FALLBACK_TEAMS = FALLBACK_STANDINGS.map((item) => ({
+  id: item.team.id,
+  name: item.team.name,
+  shortName: item.team.shortName,
+  crest: item.team.crest
+}));
+
 // MATCHES ROUTE
 router.get("/matches", async (req, res) => {
   try {
@@ -89,9 +113,10 @@ router.get("/matches", async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error("MATCH API ERROR:", error.response?.status, error.response?.data || error.message);
-    res.status(error.response?.status || 500).json({
-      message: "Failed to fetch matches",
-      error: error.response?.data || error.message
+    res.json({
+      isFallback: true,
+      warning: "External Football API limit reached or service unavailable. Showing cached matches.",
+      matches: FALLBACK_MATCHES
     });
   }
 });
@@ -103,9 +128,10 @@ router.get("/scorers", async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error("SCORERS API ERROR:", error.response?.status, error.response?.data || error.message);
-    res.status(error.response?.status || 500).json({
-      message: "Failed to fetch scorers",
-      error: error.response?.data || error.message
+    res.json({
+      isFallback: true,
+      warning: "External Football API limit reached or service unavailable. Showing cached top scorers.",
+      scorers: FALLBACK_SCORERS
     });
   }
 });
@@ -117,9 +143,10 @@ router.get("/teams", async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error("TEAMS API ERROR:", error.response?.status, error.response?.data || error.message);
-    res.status(error.response?.status || 500).json({
-      message: "Failed to fetch teams",
-      error: error.response?.data || error.message
+    res.json({
+      isFallback: true,
+      warning: "External Football API limit reached or service unavailable. Showing cached teams.",
+      teams: FALLBACK_TEAMS
     });
   }
 });
